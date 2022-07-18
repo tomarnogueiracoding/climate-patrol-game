@@ -7,6 +7,8 @@ const cHeight = canvas.height;
 // Creates the Player
 const player = new Player(75, 35, 'orange', 350, 300, ctx)
 
+
+
 // Creates the game
 let game;
 
@@ -24,14 +26,19 @@ startBtn.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
     switch(e.code) {
         case 'Space':
-            player.speedY -= 2;
-            player.gravitySpeed -= 1;
+            if (!(player.y <= 8)) {
+                player.speedY -= 4;
+              }
             break;
         case 'ArrowLeft':
-            player.speedX -= 2;
+            if (!(player.x <= 4)) {
+                player.speedX -= 2;
+              }
             break;
         case 'ArrowRight':
-            player.speedX += 2;
+            if (!(player.x + player.width >= cWidth - 4)) {
+                player.speedX += 2;
+              }
             break;
     }
 })
