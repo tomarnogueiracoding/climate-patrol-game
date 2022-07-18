@@ -68,81 +68,30 @@ class Player {
         return this.y + this.height;
     }
 
-    crashWith(buildings) {
+    crashWithBuildings(buildings) {
         return !(
             this.bottomEdge() < buildings.topEdge() ||
             this.topEdge() > buildings.bottomEdge() ||
             this.rightEdge() < buildings.leftEdge() ||
             this.leftEdge() > buildings.rightEdge());
     }
-}
 
-// BUILDINGS
-
-class Building {
-    constructor(width, height, color, x, y, ctx) {
-        this.width = width;
-        this.height = height;
-        this.color = color;
-        this.x = x;
-        this.y = y - this.height;
-        this.ctx = ctx;
+    crashWithPlanes(planes) {
+        return !(
+            this.bottomEdge() < planes.topEdge() ||
+            this.topEdge() > planes.bottomEdge() ||
+            this.rightEdge() < planes.leftEdge() ||
+            this.leftEdge() > planes.rightEdge());
     }
 
-    
-
-    draw() {
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
-    }
-
-    leftEdge() {
-        return this.x;
-    }
-
-    rightEdge() {
-        return this.x + this.width;
-    }
-
-    topEdge() {
-        return this.y;
-    }
-
-    bottomEdge() {
-        return this.y + this.height;
+    crashWithPeople(people) {
+        return !(
+            this.bottomEdge() < people.topEdge() ||
+            this.topEdge() > people.bottomEdge() ||
+            this.rightEdge() < people.leftEdge() ||
+            this.leftEdge() > people.rightEdge());
     }
 }
 
-// PLANES
 
-class PLane {
-    constructor(width, height, color, x, y, ctx) {
-        this.width = width;
-        this.height = height;
-        this.color = color;
-        this.x = x;
-        this y = Math.floor(Math.random(y));
-        this.ctx = ctx;
-    }
 
-    draw() {
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
-    }
-
-    leftEdge() {
-        return this.x;
-    }
-
-    rightEdge() {
-        return this.x + this.width;
-    }
-
-    topEdge() {
-        return this.y;
-    }
-
-    bottomEdge() {
-        return this.y + this.height;
-    }
-}
