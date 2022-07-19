@@ -1,20 +1,23 @@
 // SAFEZONE
 
 class Safezone {
-    constructor(width, height, color, x, y, ctx) {
+    constructor(width, height, x, y, ctx) {
         this.width = width;
         this.height = height;
-        this.color = color;
         this.x = x;
         this.y = y;
         this.ctx = ctx;
+        this.safezoneImg = new Image()
+        this.safezoneImg.addEventListener('load', () => {
+         });
+         this.safezoneImg.src = '/final-images/safezone.png';
     }
 
     
 
     draw() {
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+
+        this.ctx.drawImage(this.safezoneImg, this.x, this.y, this.width, this.height);
     }
 
     leftEdge() {

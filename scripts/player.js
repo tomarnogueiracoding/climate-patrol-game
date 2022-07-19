@@ -1,10 +1,9 @@
 // HELICOPTER
 
 class Player {
-    constructor(width, height, color, x, y, ctx) {
+    constructor(width, height, x, y, ctx) {
         this.width = width;
         this.height = height;
-        this.color = color;
         this.x = x;
         this.y = y;
         this.ctx = ctx;
@@ -12,14 +11,15 @@ class Player {
         this.speedY = 0;
         this.gravity = 1;
         this.gravitySpeed = 0.0005;
-        // const playerImg = new Image();
-        // playerImg.addEventListener('load', () => {})
-        // this.playerImg.src = '/final-images/helicopter.png'
-    }
+        this.playerImg = new Image()
+        this.playerImg.addEventListener('load', () => {
+    });
+    this.playerImg.src =
+      '/final-images/helicopter.png';
+}
 
     newPos() {
         this.gravitySpeed += this.gravity;
-        console.log(this.gravitySpeed)
         this.x += this.speedX;
         this.y += this.speedY + this.gravitySpeed;
         
@@ -50,13 +50,9 @@ class Player {
           }
     }
 
-    draw() {
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
-        //this.ctx.drawImage(this.playerImg, 50, 50, 74, 30);
+    draw() { 
+        this.ctx.drawImage(this.playerImg, this.x, this.y, this.width, this.height);
     }
-    
-    
 
     leftEdge() {
         return this.x;

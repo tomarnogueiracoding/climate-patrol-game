@@ -8,13 +8,17 @@ class People {
         this.x = x;
         this.y = y;
         this.ctx = ctx;
+        this.peopleImg = new Image()
+        this.peopleImg.addEventListener('load', () => {
+         });
+         this.peopleImg.src = '/final-images/people.png';
     }
 
     
 
     draw() {
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+
+        this.ctx.drawImage(this.peopleImg, this.x, this.y, this.width, this.height);
     }
 
     leftEdge() {

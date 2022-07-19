@@ -1,20 +1,24 @@
 // BUILDINGS
 
 class Building {
-    constructor(width, height, color, x, y, ctx) {
+    constructor(width, height, x, y, ctx) {
         this.width = width;
         this.height = height;
-        this.color = color;
         this.x = x;
         this.y = y - this.height;
         this.ctx = ctx;
+        this.buildingImg = new Image()
+        this.buildingImg.addEventListener('load', () => {
+         });
+         this.buildingImg.src = '/final-images/building.png';
+
     }
 
     
 
     draw() {
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+
+        this.ctx.drawImage(this.buildingImg, this.x, this.y, this.width, this.height);
     }
 
     leftEdge() {

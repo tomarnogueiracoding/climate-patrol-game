@@ -8,23 +8,26 @@ const cHeight = canvas.height;
 
 
 // Creates the Player
-const player = new Player(75, 35, 'orange', 0, 0, ctx)
 
 
 
 // Creates the game
-let game;
 
 // Creates the Start Button
-const startBtn = document.getElementById('start');
-startBtn.addEventListener('click', (e) => {
-    if (!game) {
-        game = new Game(ctx, cWidth, cHeight, player);
-        game.start();
-    } else if (game && !game.isRunning) {
-        game.reset();
-    }
-})
+const player = new Player(75, 35, 0, 0, ctx);
+
+let game;
+
+    const startBtn = document.getElementById('start');
+    startBtn.addEventListener('click', (e) => {
+        if (!game) {
+            game = new Game(ctx, cWidth, cHeight, player);
+            game.start();
+        } else if (game && !game.isRunning) {
+            game.reset();
+        }
+    })
+
 
 document.addEventListener('keydown', (e) => {
     switch(e.code) {

@@ -8,12 +8,16 @@ class Plane {
         this.x = x;
         this.y = y;
         this.ctx = ctx;
+        this.planeImg = new Image()
+        this.planeImg.addEventListener('load', () => {
+         });
+         this.planeImg.src = '/final-images/plane.png';
     }
 
 
     draw() {
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+
+        this.ctx.drawImage(this.planeImg, this.x, this.y, this.width, this.height);
     }
 
     leftEdge() {

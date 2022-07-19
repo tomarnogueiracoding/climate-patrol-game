@@ -14,18 +14,21 @@ class Game {
         this.peopleSaved = 0;   
         this.lives = 3;
         this.safezone = null;
+        this.backgroundImg = new Image()
+        this.backgroundImg.addEventListener('load', () => {
+         });
+         this.backgroundImg.src = '/final-images/background.jpg';
     }
 
     // Starting the game
 
     start = () => {
+        this.planes.push(new Plane(132, 38, this.width, this.height, this.ctx));
         this.interval = setInterval(this.updateGameArea, 20);
         this.isRunning = true;
         this.createBuildings();
-        this.createPlanes();
         this.createPeople();   
         this.createSafezone();
-       
     }
 
     // Reseting the game
@@ -48,52 +51,48 @@ class Game {
     // Creates the buildings
 
     createBuildings(){
-        const building1 = new Building(240, 400, '#A600FF', 0, this.height, this.ctx)
-        const building2 = new Building(240, 300, '#FF00D1', 240, this.height, this.ctx)
-        const building3 = new Building(240, 150, '#A600FF', 480, this.height, this.ctx)
-        const building4 = new Building(240, 450, '#FF00D1', 720, this.height, this.ctx)
-        const building5 = new Building(240, 80, '#A600FF', 960, this.height, this.ctx)
+        const building1 = new Building(240, 400, 0, this.height, this.ctx)
+        const building2 = new Building(240, 300, 240, this.height, this.ctx)
+        const building3 = new Building(240, 150, 480, this.height, this.ctx)
+        const building4 = new Building(240, 450, 720, this.height, this.ctx)
+        const building5 = new Building(240, 80, 960, this.height, this.ctx)
         this.buildings.push(building1, building2, building3, building4, building5)
        
     }
 
     // Creates the planes
     
-    createPlanes(){
-        const plane1 = new Plane(132, 38, 'red', 500, 300, this.ctx)
-        this.planes.push(plane1)
+    createPlanes = () => {
+        if(this.planes.length === 1) {
+            return;
+        } else {
+            this.planes.push(new Plane(132, 38, this.width, this.height / 2, this.ctx));
+        }
 
-        for (let i = 0; i < this.planes.length; i++) {
-            this.planes[i].x -= 1;
-            this.planes[i].draw();
-          }
-      
-          this.frames += 1;
-
-          
-    }
+        
+ }
 
     // Creates people
 
     createPeople(){
-        const people1 = new People(18, 34, 'black', this.buildings[1].x + this.buildings[1].x / 2, this.buildings[1].y - 34, this.ctx)
-        const people2 = new People(18, 34, 'black', this.buildings[2].x + this.buildings[1].x / 2, this.buildings[2].y - 34, this.ctx)
-        const people3 = new People(18, 34, 'black', this.buildings[3].x + this.buildings[1].x / 2, this.buildings[3].y - 34, this.ctx)
-        const people4 = new People(18, 34, 'black', this.buildings[4].x + this.buildings[1].x / 2, this.buildings[4].y - 34, this.ctx)
+        const people1 = new People(18, 34, this.buildings[1].x + this.buildings[1].x / 2, this.buildings[1].y - 34, this.ctx)
+        const people2 = new People(18, 34, this.buildings[2].x + this.buildings[1].x / 2, this.buildings[2].y - 34, this.ctx)
+        const people3 = new People(18, 34, this.buildings[3].x + this.buildings[1].x / 2, this.buildings[3].y - 34, this.ctx)
+        const people4 = new People(18, 34, this.buildings[4].x + this.buildings[1].x / 2, this.buildings[4].y - 34, this.ctx)
         this.peoples.push(people1, people2, people3, people4);
     }
 
     // Creates the Safe Area
 
     createSafezone() {
-       this.safezone = new Safezone(74, 101, 'green', this.buildings[0].x + this.buildings[0].width / 5, this.buildings[0].y - 101, this.ctx)
+       this.safezone = new Safezone(74, 101, this.buildings[0].x + this.buildings[0].width / 5, this.buildings[0].y - 101, this.ctx)
     }
 
     // Design the background
 
     background() {
-        this.ctx.fillStyle = 'cyan';
-        this.ctx.fillRect(0, 0, this.width, this.height); 
+
+        this.ctx.drawImage(this.backgroundImg, 0, 0, 1200, 650);
     }
 
     // Stopping the game
@@ -149,36 +148,42 @@ class Game {
     // Draws the score on the screen - People in Helicopter and people saved
     score() {
         this.ctx.font = '24px sans-serif';
-        this.ctx.fillStyle = 'black';
+        this.ctx.fillStyle = 'white';
         this.ctx.fillText(`People in Helicopter: ${this.peopleInHelicopter}`, 950, 30);
         this.ctx.fillText(`People Saved: ${this.peopleSaved}`, 950, 60);
         this.ctx.fillText(`Lives: ${this.lives}`, 950, 90);
     }
 
+    
+
     // Updates the canvas 
 
     updateGameArea = () => {
-
         this.clear();
         this.background()
+        this.safezone.draw();
+        this.player.draw();
+        this.player.checkGravitySpeed();
+        this.player.checkScreenEdges();
+        this.player.newPos();
         this.buildings.forEach((building) => {
             building.draw();
         })
-
         this.planes.forEach((plane) => {
             plane.draw();
+            if (plane.x + plane.width < 0) {
+             this.planes = [];
+        }
+            plane.x -= 3
         })
         
         this.peoples.forEach((people) => {
             people.draw();
         })
-        this.player.checkGravitySpeed();
-        this.player.checkScreenEdges();
-        this.player.newPos();
-        this.player.draw();
+        
+        this.createPlanes()
         this.checkGameOver();
         this.checkPeopleColision();
-        this.safezone.draw()
         this.checkSafezoneColision();
         this.score();
     }
