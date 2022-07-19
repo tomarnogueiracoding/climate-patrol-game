@@ -12,6 +12,9 @@ class Player {
         this.speedY = 0;
         this.gravity = 1;
         this.gravitySpeed = 0.0005;
+        // const playerImg = new Image();
+        // playerImg.addEventListener('load', () => {})
+        // this.playerImg.src = '/final-images/helicopter.png'
     }
 
     newPos() {
@@ -50,7 +53,10 @@ class Player {
     draw() {
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        //this.ctx.drawImage(this.playerImg, 50, 50, 74, 30);
     }
+    
+    
 
     leftEdge() {
         return this.x;
@@ -91,7 +97,16 @@ class Player {
             this.rightEdge() < people.leftEdge() ||
             this.leftEdge() > people.rightEdge());
     }
+
+    crashWithSafezone(safezone) {
+        return !(
+            this.bottomEdge() < safezone.topEdge() ||
+            this.topEdge() > safezone.bottomEdge() ||
+            this.rightEdge() < safezone.leftEdge() ||
+            this.leftEdge() > safezone.rightEdge());
+    }
 }
+
 
 
 

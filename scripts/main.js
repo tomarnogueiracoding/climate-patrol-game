@@ -6,8 +6,9 @@ const cHeight = canvas.height;
 
 // Creates the Background
 
+
 // Creates the Player
-const player = new Player(75, 35, 'orange', 350, 300, ctx)
+const player = new Player(75, 35, 'orange', 0, 0, ctx)
 
 
 

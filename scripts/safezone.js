@@ -1,6 +1,6 @@
-// PLANE
+// SAFEZONE
 
-class Plane {
+class Safezone {
     constructor(width, height, color, x, y, ctx) {
         this.width = width;
         this.height = height;
@@ -10,6 +10,7 @@ class Plane {
         this.ctx = ctx;
     }
 
+    
 
     draw() {
         this.ctx.fillStyle = this.color;
