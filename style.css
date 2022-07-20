@@ -1,0 +1,13 @@
+body {
+    background: rgb(45,45,45);
+    background: linear-gradient(90deg, rgba(45,45,45,1) 0%, rgba(100,100,100,1) 53%, rgba(39,39,38,1) 100%);
+}
+
+
+.controls {
+    position: absolute;
+    width: 200px;
+    height: 250;
+    top: 10%
+
+}

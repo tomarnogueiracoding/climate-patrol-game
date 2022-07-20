@@ -15,6 +15,13 @@ class Game {
         this.lives = 3;
         this.safezone = null;
         // ----- IMAGES -----
+
+        // Start Menu
+        this.startMenuImg = new Image()
+        this.startMenuImg.addEventListener('load', () => {
+         });
+        this.startMenuImg.src = './final-images/start-menu.jpg';
+
         // Background Image
         this.backgroundImg = new Image()
         this.backgroundImg.addEventListener('load', () => {
@@ -63,6 +70,8 @@ class Game {
     // Reseting the game
 
     reset = () => {
+        this.lives = 3
+        this.peopleSaved = 0;
         this.player.x = 50;
         this.player.y = 50;
         this.frames = 0;
@@ -143,7 +152,9 @@ class Game {
 
     stop() {
         clearInterval(this.interval);
+        gameOverScreen = true;
         this.isRunning = false;
+        this.backgroundSound.loop = false;
     }
 
     // Game over checks - colisions and scoring conditions
@@ -158,17 +169,20 @@ class Game {
           });
       
           if (crashedBuildings) {
-            this.stop();
+
+            this.player.x = 0
+            this.player.y = 0
             this.lives--
             this.explosionSound.play();
           } else if (crashedPlanes) {
-            this.stop();
+            this.player.x = 0
+            this.player.y = 0
             this.lives--
             this.explosionSound.play();
           } else if (this.lives === 0) {
               this.stop()
               this.drawGameOver();
-          } else if (this.peopleSaved === 2) {
+          } else if (this.peopleSaved === 4) {
             this.stop();
             this.drawGameWin();
           }
@@ -233,10 +247,10 @@ class Game {
             people.draw();
         })
         
+        this.score();
         this.checkGameOver();
         this.checkPeopleColision();
         this.checkSafezoneColision();
-        this.score();
         this.drawFire();
         this.createPlanes()
     }

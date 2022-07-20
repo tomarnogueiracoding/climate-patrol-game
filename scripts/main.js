@@ -16,22 +16,29 @@ const cHeight = canvas.height;
 // Creates the Start Button
 const player = new Player(75, 35, 0, 0, ctx);
 
+//Create bg image
+let bgImg = new Image()
+  bgImg.addEventListener('load', () => {
+        ctx.drawImage(bgImg, 0, 0, cWidth, cHeight)
+         });
+        bgImg.src = './final-images/start-menu.jpg';
+
 let game;
 
-    const startBtn = document.getElementById('start');
-    startBtn.addEventListener('click', (e) => {
-        if (!game) {
-            game = new Game(ctx, cWidth, cHeight, player);
-            game.start();
-        } else if (game && !game.isRunning) {
-            game.reset();
-        }
-    })
-
+let gameOverScreen = false;
 
 document.addEventListener('keydown', (e) => {
     switch(e.code) {
         case 'Space':
+            if(!game) {
+                game = new Game(ctx, cWidth, cHeight, player);
+                game.start();
+            }else if(game &&  !game.isRunning && !gameOverScreen){
+                game.reset()
+            } else if(game && !game.isRunning){
+                ctx.drawImage(bgImg, 0, 0, cWidth, cHeight)
+                gameOverScreen = false;
+            } 
             if (!(player.y <= 8)) {
                 player.speedY -= 4;
               }
