@@ -15,7 +15,7 @@ class Player {
         this.playerImg.addEventListener('load', () => {
     });
     this.playerImg.src =
-      '/final-images/helicopter.png';
+      './final-images/helicopter.png';
 }
 
     newPos() {

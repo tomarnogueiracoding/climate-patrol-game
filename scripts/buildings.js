@@ -10,7 +10,7 @@ class Building {
         this.buildingImg = new Image()
         this.buildingImg.addEventListener('load', () => {
          });
-         this.buildingImg.src = '/final-images/building.png';
+         this.buildingImg.src = './final-images/building.png';
 
     }
 

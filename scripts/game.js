@@ -14,32 +14,57 @@ class Game {
         this.peopleSaved = 0;   
         this.lives = 3;
         this.safezone = null;
+        // ----- IMAGES -----
+        // Background Image
         this.backgroundImg = new Image()
         this.backgroundImg.addEventListener('load', () => {
          });
-        this.backgroundImg.src = '/final-images/background.jpg';
+        this.backgroundImg.src = './final-images/background.jpg';
+
+        // Fire Overlay Image
         this.fireImg = new Image()
         this.fireImg.addEventListener('load', () => {
          });
-        this.fireImg.src = '/final-images/fire.jpg';
+        this.fireImg.src = './final-images/fire.png';
+
+        // Game Over Screen
+        this.gameOverImg = new Image()
+        this.gameOverImg.addEventListener('load', () => {
+         });
+        this.gameOverImg.src = './final-images/game-over.jpg';
+
+        // Game Win Screen
+        this.gameWinImg = new Image()
+        this.gameWinImg.addEventListener('load', () => {
+         });
+        this.gameWinImg.src = './final-images/win-game.jpg';
+
+        // ------- SOUNDS ------
+        this.pickUpSound = new Audio('./sounds/people-in-helicopter.mp3');
+        this.deliveredSound = new Audio('./sounds/people-delivered.mp3');
+        this.backgroundSound = new Audio('./sounds/background-sound.mp3');
+        this.jetSound = new Audio('./sounds/jet-sound.mp3');
+        this.explosionSound = new Audio('./sounds/explosion.mp3')
     }
 
     // Starting the game
 
     start = () => {
-        this.planes.push(new Plane(132, 38, this.width, this.height, this.ctx));
+        this.planes.push(new Plane(132, 38, this.width, Math.floor(Math.random(this.height)), this.ctx));
         this.interval = setInterval(this.updateGameArea, 20);
         this.isRunning = true;
         this.createBuildings();
         this.createPeople();   
         this.createSafezone();
+        this.backgroundSound.play();
+        this.backgroundSound.loop = true;
     }
 
     // Reseting the game
 
     reset = () => {
-        this.player.x = 0;
-        this.player.y = 0;
+        this.player.x = 50;
+        this.player.y = 50;
         this.frames = 0;
         this.buildings = [];
         this.planes = [];
@@ -70,7 +95,8 @@ class Game {
         if(this.planes.length === 1) {
             return;
         } else {
-            this.planes.push(new Plane(132, 38, this.width, this.height / 2, this.ctx));
+            this.planes.push(new Plane(132, 38, this.width, Math.floor(Math.random(this.height) * this.height + 50), this.ctx));
+            this.jetSound.play();
         }
 
         
@@ -89,7 +115,7 @@ class Game {
     // Creates the Safe Area
 
     createSafezone() {
-       this.safezone = new Safezone(74, 101, this.buildings[0].x + this.buildings[0].width / 5, this.buildings[0].y - 101, this.ctx)
+       this.safezone = new Safezone(74, 101, this.buildings[0].x + 120, this.buildings[0].y - 101, this.ctx)
     }
 
     // Design the background
@@ -97,6 +123,15 @@ class Game {
     background() {
 
         this.ctx.drawImage(this.backgroundImg, 0, 0, 1200, 650);
+    }
+
+    drawGameOver() {
+        this.ctx.drawImage(this.gameOverImg, 0, 0, 1200, 650);
+
+    }
+
+    drawGameWin() {
+        this.ctx.drawImage(this.gameWinImg, 0, 0, 1200, 650);
     }
 
     drawFire() {
@@ -125,11 +160,17 @@ class Game {
           if (crashedBuildings) {
             this.stop();
             this.lives--
+            this.explosionSound.play();
           } else if (crashedPlanes) {
             this.stop();
             this.lives--
+            this.explosionSound.play();
           } else if (this.lives === 0) {
+              this.stop()
+              this.drawGameOver();
+          } else if (this.peopleSaved === 2) {
             this.stop();
+            this.drawGameWin();
           }
     }
 
@@ -140,6 +181,7 @@ class Game {
             if (this.player.crashWithPeople(people) && (this.peopleInHelicopter < 1)) {
                 this.peoples.splice(index, 1)
                 this.peopleInHelicopter++
+                this.pickUpSound.play();
             }
         })
 
@@ -150,6 +192,7 @@ class Game {
             if (this.player.crashWithSafezone(this.safezone) && (this.peopleInHelicopter > 0)) {
             this.peopleInHelicopter--
             this.peopleSaved++
+            this.deliveredSound.play();
         }
     }
 
@@ -190,11 +233,11 @@ class Game {
             people.draw();
         })
         
-        this.createPlanes()
         this.checkGameOver();
         this.checkPeopleColision();
         this.checkSafezoneColision();
         this.score();
         this.drawFire();
+        this.createPlanes()
     }
 }

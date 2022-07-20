@@ -10,7 +10,7 @@ class Plane {
         this.planeImg = new Image()
         this.planeImg.addEventListener('load', () => {
          });
-         this.planeImg.src = '/final-images/plane.png';
+         this.planeImg.src = './final-images/plane.png';
     }
 
 

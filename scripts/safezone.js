@@ -10,7 +10,7 @@ class Safezone {
         this.safezoneImg = new Image()
         this.safezoneImg.addEventListener('load', () => {
          });
-         this.safezoneImg.src = '/final-images/safezone.png';
+         this.safezoneImg.src = './final-images/safezone.png';
     }
 
     

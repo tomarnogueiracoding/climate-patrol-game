@@ -10,7 +10,7 @@ class People {
         this.peopleImg = new Image()
         this.peopleImg.addEventListener('load', () => {
          });
-         this.peopleImg.src = '/final-images/people.png';
+         this.peopleImg.src = './final-images/people.png';
     }
 
     
