@@ -9,7 +9,7 @@ class Player {
         this.ctx = ctx;
         this.speedX = 0;
         this.speedY = 0;
-        this.gravity = 1;
+        this.gravity = 2.5;
         this.gravitySpeed = 0.0005;
         this.playerImg = new Image()
         this.playerImg.addEventListener('load', () => {});
@@ -26,8 +26,8 @@ class Player {
     }
 
     checkGravitySpeed() {
-        if (this.gravitySpeed >2) {
-            this.gravitySpeed = 1;
+        if (this.gravitySpeed >2.5) {
+            this.gravitySpeed = 2;
         }
 
     }

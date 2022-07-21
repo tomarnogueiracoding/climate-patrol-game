@@ -53,6 +53,10 @@ document.addEventListener('keydown', (e) => {
                 player.speedX += 2;
               }
             break;
+        case 'ArrowDown':
+                player.speedY += 2;
+                break;
+            
     }
 })
 
