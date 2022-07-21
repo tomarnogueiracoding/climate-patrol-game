@@ -12,16 +12,15 @@ class Player {
         this.gravity = 1;
         this.gravitySpeed = 0.0005;
         this.playerImg = new Image()
-        this.playerImg.addEventListener('load', () => {
-    });
-    this.playerImg.src =
-      './final-images/helicopter.png';
-}
+        this.playerImg.addEventListener('load', () => {});
+        this.playerImg.src ='./final-images/helicopter.png';
+
+    }
 
     newPos() {
         this.gravitySpeed += this.gravity;
         this.x += this.speedX;
-        this.y += this.speedY + this.gravitySpeed;
+        this.y += this.speedY + this.gravity;
         
        
     }

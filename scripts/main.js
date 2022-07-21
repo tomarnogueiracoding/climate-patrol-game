@@ -60,3 +60,4 @@ document.addEventListener('keyup', (e) => {
     player.speedX = 0;
     player.speedY = 0;
 })
+

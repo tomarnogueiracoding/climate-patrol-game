@@ -57,7 +57,7 @@ class Game {
     // Starting the game
 
     start = () => {
-        this.planes.push(new Plane(132, 38, this.width, Math.floor(Math.random(this.height)), this.ctx));
+        // this.planes.push(new Plane(132, 38, this.width, Math.floor(Math.random(this.height)), this.ctx));
         this.interval = setInterval(this.updateGameArea, 20);
         this.isRunning = true;
         this.createBuildings();
@@ -167,21 +167,35 @@ class Game {
         const crashedPlanes = this.planes.some((planes) => {
             return this.player.crashWithPlanes(planes);
           });
-      
+          
           if (crashedBuildings) {
+              this.lives--;
+              this.explosionSound.play();
+              clearInterval(this.interval);
+              // this.background()
+              // animation(this.player.x, this.player.y)
+              this.player.x = 0;
+              this.player.y = 0;
+              setTimeout(() => {
+                this.interval = setInterval(this.updateGameArea, 20);
+              }, 1000)
 
-            this.player.x = 0
-            this.player.y = 0
-            this.lives--
-            this.explosionSound.play();
           } else if (crashedPlanes) {
-            this.player.x = 0
-            this.player.y = 0
-            this.lives--
-            this.explosionSound.play();
+              this.lives--;
+              this.explosionSound.play();
+              clearInterval(this.interval);
+              // this.background()
+              // animation(this.player.x, this.player.y)
+              this.player.x = 0;
+              this.player.y = 0;
+            setTimeout(() => {
+              this.interval = setInterval(this.updateGameArea, 20);
+            }, 1000)
+
           } else if (this.lives === 0) {
               this.stop()
               this.drawGameOver();
+
           } else if (this.peopleSaved === 4) {
             this.stop();
             this.drawGameWin();
@@ -248,10 +262,12 @@ class Game {
         })
         
         this.score();
-        this.checkGameOver();
         this.checkPeopleColision();
         this.checkSafezoneColision();
         this.drawFire();
         this.createPlanes()
+        this.checkGameOver();
+        
+       
     }
 }
