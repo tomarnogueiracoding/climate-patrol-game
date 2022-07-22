@@ -14,7 +14,7 @@ Game created for the first project on Ironhack Full-Stack Web Development Bootca
 All assets from [openGameArt.org](https://opengameart.org/)
 
 ## Support
-This project would not be possible without the help of the Ironhack Team: Lead Trainer [André Ferreira](https://github.com/MrAFerreira), and Trainer Assistant [Xico Duarte](https://github.com/fcaramez/fcaramez)
+This project would not be possible without the help of the Ironhack Team: Lead Teacher [André Ferreira](https://github.com/MrAFerreira), and Teacher Assistant [Xico Duarte](https://github.com/fcaramez/fcaramez)
 
 
 
